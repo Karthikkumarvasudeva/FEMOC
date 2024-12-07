@@ -1,8 +1,0 @@
-
-
-git remote set -url origin https://token@github.com/username/repo_name
-
-To create a new repo, create a new token and use that for the password.
-
-git clone username/repo_name
-
