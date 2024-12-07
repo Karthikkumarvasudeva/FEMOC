@@ -1,1 +1,2 @@
+This following link explains the implementation of Helan_Hermann_Miyoshi scheme
 https://jschoeberl.github.io/iFEM/plates_shells/1_hhj.html
