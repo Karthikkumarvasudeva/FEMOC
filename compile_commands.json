@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/student/FEM_practice",
+  "command": "/usr/bin/g++-9 -DNDEBUG -isystem /usr/local/dealii/include -isystem /usr/local/dealii/include/deal.II/bundled -pedantic -Wall -Wextra -Wmissing-braces -Woverloaded-virtual -Wpointer-arith -Wsign-compare -Wsuggest-override -Wswitch -Wsynth -Wwrite-strings -Wno-placement-new -Wno-deprecated-declarations -Wno-literal-suffix -Wno-psabi -Wno-parentheses -Wno-unused-local-typedefs -fopenmp-simd -pthread -O2 -funroll-loops -funroll-all-loops -Wno-unused-parameter -std=gnu++17 -o CMakeFiles/main.dir/main.cc.o -c /home/student/FEM_practice/main.cc",
+  "file": "/home/student/FEM_practice/main.cc"
+}
+]

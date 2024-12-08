@@ -1,0 +1,9 @@
+/home/student/FEM_practice/CMakeFiles/rebuild_cache.dir
+/home/student/FEM_practice/CMakeFiles/info.dir
+/home/student/FEM_practice/CMakeFiles/edit_cache.dir
+/home/student/FEM_practice/CMakeFiles/strip_comments.dir
+/home/student/FEM_practice/CMakeFiles/distclean.dir
+/home/student/FEM_practice/CMakeFiles/runclean.dir
+/home/student/FEM_practice/CMakeFiles/release.dir
+/home/student/FEM_practice/CMakeFiles/run.dir
+/home/student/FEM_practice/CMakeFiles/main.dir
