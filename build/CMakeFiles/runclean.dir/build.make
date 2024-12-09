@@ -56,7 +56,7 @@ EQUALS = =
 CMAKE_SOURCE_DIR = /home/student/FEM_practice
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/student/FEM_practice
+CMAKE_BINARY_DIR = /home/student/FEM_practice/build
 
 # Utility rule file for runclean.
 
@@ -67,7 +67,7 @@ include CMakeFiles/runclean.dir/compiler_depend.make
 include CMakeFiles/runclean.dir/progress.make
 
 CMakeFiles/runclean:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/student/FEM_practice/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "runclean invoked"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/student/FEM_practice/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "runclean invoked"
 	/usr/bin/cmake -E remove *.log *.gmv *.gnuplot *.gpl *.eps *.pov *.vtk *.ucd *.d2
 
 runclean: CMakeFiles/runclean
@@ -83,6 +83,6 @@ CMakeFiles/runclean.dir/clean:
 .PHONY : CMakeFiles/runclean.dir/clean
 
 CMakeFiles/runclean.dir/depend:
-	cd /home/student/FEM_practice && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/student/FEM_practice /home/student/FEM_practice /home/student/FEM_practice /home/student/FEM_practice /home/student/FEM_practice/CMakeFiles/runclean.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/student/FEM_practice /home/student/FEM_practice /home/student/FEM_practice/build /home/student/FEM_practice/build /home/student/FEM_practice/build/CMakeFiles/runclean.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/runclean.dir/depend
 
