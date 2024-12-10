@@ -22,3 +22,5 @@ DEAL_II_INITIALIZE_CACHED_VARIABLES()
 
 # Add the practice_problems subdirectory
 ADD_SUBDIRECTORY(practice_problems)
+
+SET(CMAKE_EXPORT_COMPILE_COMMANDS OFF)
