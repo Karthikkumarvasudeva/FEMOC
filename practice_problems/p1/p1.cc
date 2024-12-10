@@ -20,7 +20,7 @@ int main(){
  std::cout << vec1.size() << std::endl;
  std::cout<< vec1[0] <<std::endl;
 
- vec1.push_back(9.9234);
+ vec1.push_back(1239.9234);
 
  std::cout<<vec1.size() <<std::endl;
  std::cout<< vec1[5] <<std::endl;
