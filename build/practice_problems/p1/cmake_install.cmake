@@ -1,4 +1,4 @@
-# Install script for directory: /home/student/FEM_practice/practice_problems
+# Install script for directory: /home/student/FEM_practice/practice_problems/p1
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,14 +40,5 @@ endif()
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
   set(CMAKE_OBJDUMP "/usr/bin/objdump")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for each subdirectory.
-  include("/home/student/FEM_practice/build/practice_problems/p1/cmake_install.cmake")
-  include("/home/student/FEM_practice/build/practice_problems/p2/cmake_install.cmake")
-  include("/home/student/FEM_practice/build/practice_problems/p3/cmake_install.cmake")
-  include("/home/student/FEM_practice/build/practice_problems/p4/cmake_install.cmake")
-
 endif()
 

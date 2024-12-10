@@ -1,13 +1,8 @@
-# Set the name of the target
-SET(TARGET "p1")
+# Set the minimum required version of CMake
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
 
-# Declare source files
-SET(TARGET_SRC
-   ${TARGET}.cc
-)
-
-# Create executable
-ADD_EXECUTABLE(${TARGET} ${TARGET_SRC})
-
-# Set up deal.II target
-DEAL_II_SETUP_TARGET(${TARGET})
+# Add subdirectories for each problem (p1 and p2)
+ADD_SUBDIRECTORY(p1)
+ADD_SUBDIRECTORY(p2)
+ADD_SUBDIRECTORY(p3)
+ADD_SUBDIRECTORY(p4)

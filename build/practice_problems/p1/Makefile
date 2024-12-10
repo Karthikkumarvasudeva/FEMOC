@@ -65,16 +65,6 @@ CMAKE_BINARY_DIR = /home/student/FEM_practice/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
@@ -85,16 +75,26 @@ edit_cache:
 edit_cache/fast: edit_cache
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/student/FEM_practice/build/CMakeFiles /home/student/FEM_practice/build/practice_problems//CMakeFiles/progress.marks
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/all
+	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/student/FEM_practice/build/CMakeFiles /home/student/FEM_practice/build/practice_problems/p1//CMakeFiles/progress.marks
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p1/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/student/FEM_practice/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/clean
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p1/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,18 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/preinstall
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p1/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/preinstall
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p1/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
 	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+practice_problems/p1/CMakeFiles/p1.dir/rule:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p1/CMakeFiles/p1.dir/rule
+.PHONY : practice_problems/p1/CMakeFiles/p1.dir/rule
+
+# Convenience name for target.
+p1: practice_problems/p1/CMakeFiles/p1.dir/rule
+.PHONY : p1
+
+# fast build rule for target.
+p1/fast:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p1/CMakeFiles/p1.dir/build.make practice_problems/p1/CMakeFiles/p1.dir/build
+.PHONY : p1/fast
+
+p1.o: p1.cc.o
+.PHONY : p1.o
+
+# target to build an object file
+p1.cc.o:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p1/CMakeFiles/p1.dir/build.make practice_problems/p1/CMakeFiles/p1.dir/p1.cc.o
+.PHONY : p1.cc.o
+
+p1.i: p1.cc.i
+.PHONY : p1.i
+
+# target to preprocess a source file
+p1.cc.i:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p1/CMakeFiles/p1.dir/build.make practice_problems/p1/CMakeFiles/p1.dir/p1.cc.i
+.PHONY : p1.cc.i
+
+p1.s: p1.cc.s
+.PHONY : p1.s
+
+# target to generate assembly for a file
+p1.cc.s:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p1/CMakeFiles/p1.dir/build.make practice_problems/p1/CMakeFiles/p1.dir/p1.cc.s
+.PHONY : p1.cc.s
 
 # Help Target
 help:
@@ -124,6 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... p1"
+	@echo "... p1.o"
+	@echo "... p1.i"
+	@echo "... p1.s"
 .PHONY : help
 
 

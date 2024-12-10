@@ -12,6 +12,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.20.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.20.4/CMakeSystem.cmake"
   "../practice_problems/CMakeLists.txt"
+  "../practice_problems/p1/CMakeLists.txt"
+  "../practice_problems/p2/CMakeLists.txt"
+  "../practice_problems/p3/CMakeLists.txt"
+  "../practice_problems/p4/CMakeLists.txt"
   "/usr/local/dealii/lib/cmake/deal.II/deal.IIConfig.cmake"
   "/usr/local/dealii/lib/cmake/deal.II/deal.IIConfigVersion.cmake"
   "/usr/local/dealii/lib/cmake/deal.II/deal.IITargets-release.cmake"
@@ -54,9 +58,16 @@ set(CMAKE_MAKEFILE_OUTPUTS
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "practice_problems/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "practice_problems/p1/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "practice_problems/p2/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "practice_problems/p3/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "practice_problems/p4/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "practice_problems/CMakeFiles/p1.dir/DependInfo.cmake"
+  "practice_problems/p1/CMakeFiles/p1.dir/DependInfo.cmake"
+  "practice_problems/p2/CMakeFiles/p2.dir/DependInfo.cmake"
+  "practice_problems/p3/CMakeFiles/p3.dir/DependInfo.cmake"
+  "practice_problems/p4/CMakeFiles/p4.dir/DependInfo.cmake"
   )

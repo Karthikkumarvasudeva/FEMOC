@@ -87,14 +87,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/student/FEM_practice/build/CMakeFiles /home/student/FEM_practice/build/practice_problems//CMakeFiles/progress.marks
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/all
+	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/student/FEM_practice/build/CMakeFiles /home/student/FEM_practice/build/practice_problems/p2//CMakeFiles/progress.marks
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p2/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/student/FEM_practice/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/clean
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p2/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,18 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/preinstall
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p2/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/preinstall
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p2/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
 	cd /home/student/FEM_practice/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
+
+# Convenience name for target.
+practice_problems/p2/CMakeFiles/p2.dir/rule:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 practice_problems/p2/CMakeFiles/p2.dir/rule
+.PHONY : practice_problems/p2/CMakeFiles/p2.dir/rule
+
+# Convenience name for target.
+p2: practice_problems/p2/CMakeFiles/p2.dir/rule
+.PHONY : p2
+
+# fast build rule for target.
+p2/fast:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p2/CMakeFiles/p2.dir/build.make practice_problems/p2/CMakeFiles/p2.dir/build
+.PHONY : p2/fast
+
+p2.o: p2.cc.o
+.PHONY : p2.o
+
+# target to build an object file
+p2.cc.o:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p2/CMakeFiles/p2.dir/build.make practice_problems/p2/CMakeFiles/p2.dir/p2.cc.o
+.PHONY : p2.cc.o
+
+p2.i: p2.cc.i
+.PHONY : p2.i
+
+# target to preprocess a source file
+p2.cc.i:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p2/CMakeFiles/p2.dir/build.make practice_problems/p2/CMakeFiles/p2.dir/p2.cc.i
+.PHONY : p2.cc.i
+
+p2.s: p2.cc.s
+.PHONY : p2.s
+
+# target to generate assembly for a file
+p2.cc.s:
+	cd /home/student/FEM_practice/build && $(MAKE) $(MAKESILENT) -f practice_problems/p2/CMakeFiles/p2.dir/build.make practice_problems/p2/CMakeFiles/p2.dir/p2.cc.s
+.PHONY : p2.cc.s
 
 # Help Target
 help:
@@ -124,6 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... p2"
+	@echo "... p2.o"
+	@echo "... p2.i"
+	@echo "... p2.s"
 .PHONY : help
 
 

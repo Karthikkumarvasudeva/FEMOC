@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/student/FEM_practice/practice_problems/p1.cc" "practice_problems/CMakeFiles/p1.dir/p1.cc.o" "gcc" "practice_problems/CMakeFiles/p1.dir/p1.cc.o.d"
+  "/home/student/FEM_practice/practice_problems/p4/p4.cc" "practice_problems/p4/CMakeFiles/p4.dir/p4.cc.o" "gcc" "practice_problems/p4/CMakeFiles/p4.dir/p4.cc.o.d"
   )
 
 # Targets to which this target links.

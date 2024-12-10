@@ -126,8 +126,47 @@ p1: cmake_check_build_system
 
 # fast build rule for target.
 p1/fast:
-	$(MAKE) $(MAKESILENT) -f practice_problems/CMakeFiles/p1.dir/build.make practice_problems/CMakeFiles/p1.dir/build
+	$(MAKE) $(MAKESILENT) -f practice_problems/p1/CMakeFiles/p1.dir/build.make practice_problems/p1/CMakeFiles/p1.dir/build
 .PHONY : p1/fast
+
+#=============================================================================
+# Target rules for targets named p2
+
+# Build rule for target.
+p2: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 p2
+.PHONY : p2
+
+# fast build rule for target.
+p2/fast:
+	$(MAKE) $(MAKESILENT) -f practice_problems/p2/CMakeFiles/p2.dir/build.make practice_problems/p2/CMakeFiles/p2.dir/build
+.PHONY : p2/fast
+
+#=============================================================================
+# Target rules for targets named p3
+
+# Build rule for target.
+p3: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 p3
+.PHONY : p3
+
+# fast build rule for target.
+p3/fast:
+	$(MAKE) $(MAKESILENT) -f practice_problems/p3/CMakeFiles/p3.dir/build.make practice_problems/p3/CMakeFiles/p3.dir/build
+.PHONY : p3/fast
+
+#=============================================================================
+# Target rules for targets named p4
+
+# Build rule for target.
+p4: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 p4
+.PHONY : p4
+
+# fast build rule for target.
+p4/fast:
+	$(MAKE) $(MAKESILENT) -f practice_problems/p4/CMakeFiles/p4.dir/build.make practice_problems/p4/CMakeFiles/p4.dir/build
+.PHONY : p4/fast
 
 # Help Target
 help:
@@ -138,6 +177,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... p1"
+	@echo "... p2"
+	@echo "... p3"
+	@echo "... p4"
 .PHONY : help
 
 

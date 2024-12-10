@@ -1,5 +1,5 @@
-practice_problems/CMakeFiles/p1.dir/p1.cc.o: \
- /home/student/FEM_practice/practice_problems/p1.cc \
+practice_problems/p2/CMakeFiles/p2.dir/p2.cc.o: \
+ /home/student/FEM_practice/practice_problems/p2/p2.cc \
  /usr/include/stdc-predef.h /usr/include/c++/7/iostream \
  /usr/include/c++/7/x86_64-suse-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
