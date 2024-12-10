@@ -11,7 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.20.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.20.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.20.4/CMakeSystem.cmake"
-  "CMakeFiles/print_usage.cmake"
+  "../practice_problems/CMakeLists.txt"
   "/usr/local/dealii/lib/cmake/deal.II/deal.IIConfig.cmake"
   "/usr/local/dealii/lib/cmake/deal.II/deal.IIConfigVersion.cmake"
   "/usr/local/dealii/lib/cmake/deal.II/deal.IITargets-release.cmake"
@@ -104,10 +104,6 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake"
   "/usr/share/cmake/Modules/Compiler/zOS-C-DetermineCompiler.cmake"
   "/usr/share/cmake/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake"
-  "/usr/share/cmake/Modules/FindCygwin.cmake"
-  "/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake"
-  "/usr/share/cmake/Modules/FindPackageMessage.cmake"
-  "/usr/share/cmake/Modules/FindPerl.cmake"
   "/usr/share/cmake/Modules/Internal/FeatureTesting.cmake"
   "/usr/share/cmake/Modules/Platform/Linux-Determine-CXX.cmake"
   "/usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake"
@@ -131,15 +127,10 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/3.20.4/CMakeCCompiler.cmake"
   "CMakeFiles/3.20.4/CMakeCXXCompiler.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "practice_problems/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/info.dir/DependInfo.cmake"
-  "CMakeFiles/strip_comments.dir/DependInfo.cmake"
-  "CMakeFiles/distclean.dir/DependInfo.cmake"
-  "CMakeFiles/runclean.dir/DependInfo.cmake"
-  "CMakeFiles/release.dir/DependInfo.cmake"
-  "CMakeFiles/run.dir/DependInfo.cmake"
-  "CMakeFiles/main.dir/DependInfo.cmake"
+  "practice_problems/CMakeFiles/p1.dir/DependInfo.cmake"
   )

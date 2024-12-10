@@ -1,23 +1,11 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
 
-##
-#Cmake Script
-##
-
-#Set the name of the project and target:
-SET(TARGET "main")
-
-# DEclare all the source files the target consists of:
-SET (TARGET_SRC
-   ${TARGET}.cc
-   # You can specify additional files here!
-   )
-
-# Usuually, you will not need ot modify anything beyound this ENTRY_POINT
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
-
-FIND_PACKAGE(deal.II 8.0 QUIET
+# Find deal.II package
+FIND_PACKAGE(deal.II 9.0 QUIET
    HINTS ${deal.II_DIR} ${DEAL_II_DIR} ../ ../ ../ $ENV{DEAL_II_DIR}
-   )
+)
+
+# Check if deal.II is found
 IF(NOT ${deal.II_FOUND})
   MESSAGE(FATAL_ERROR "\n"
     "*** could not locate deal.II. ***\n\n"
@@ -26,6 +14,11 @@ IF(NOT ${deal.II_FOUND})
 )
 ENDIF()
 
+# Set the project name (not the target)
+PROJECT(FEM_Practice)
+
+# Initialize deal.II cached variables
 DEAL_II_INITIALIZE_CACHED_VARIABLES()
-PROJECT(${TARGET})
-DEAL_II_INVOKE_AUTOPILOT()
+
+# Add the practice_problems subdirectory
+ADD_SUBDIRECTORY(practice_problems)

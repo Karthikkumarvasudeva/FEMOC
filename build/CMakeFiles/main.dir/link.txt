@@ -1,1 +1,0 @@
-/usr/bin/g++-9 -rdynamic -rdynamic -pthread CMakeFiles/main.dir/main.cc.o -o main  -Wl,-rpath,/usr/local/dealii/lib /usr/local/dealii/lib/libdeal_II.so.9.7.0-pre -ldl -lrt -llapack -lblas -lz 
