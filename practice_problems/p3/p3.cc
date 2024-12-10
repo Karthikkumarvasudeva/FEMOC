@@ -3,27 +3,36 @@
 
 int main(){
 
-//std::cout<<"Hello World!"<<std::endl;
- int a;
- int b,c;
- int d=1, e=3,f;
- unsigned int g=10;
- double h=9.3;
- std::cout<<3/4. <<std::endl;
+int a, *b; //pointer b
+a=3;
+b = &a;
+std::cout <<*b <<std::endl;
 
- std::vector<double> vec1;
- std::vector<double> vec2(3);
- std::vector<double>vec3(3,1.), vec4(2);
+a = 4;
+std::cout <<*b <<std::endl;
 
- vec1.resize(5);
 
- std::cout << vec1.size() << std::endl;
- std::cout<< vec1[0] <<std::endl;
 
- vec1.push_back(12347);
+std::vector<double> vec1(2,3.1), *vec2;
 
- std::cout<<vec1.size() <<std::endl;
- std::cout<< vec1[5] <<std::endl;
+vec2 = &vec1;
+
+std::cout<<vec1.size()<<" "<<vec2->size()<<std::endl;
+
+vec1.resize(3,2.1);
+
+std::cout<<vec1.size()<<" "<<vec2->size()<<std::endl;
+
+
+std::vector<double> vec(2,7.7);
+
+for(std::vector<double>::iterator  it = vec.begin(); it != vec.end(); it++){ //iterator it = vector first element; it not equal to vector last element (doesnt run out) ; increment to next element)
+
+ std::cout<< *it <<std::endl;
+
+}
+
+
 
 
 
