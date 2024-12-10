@@ -24,3 +24,16 @@ DEAL_II_INITIALIZE_CACHED_VARIABLES()
 ADD_SUBDIRECTORY(practice_problems)
 
 SET(CMAKE_EXPORT_COMPILE_COMMANDS OFF)
+
+# Clean up CMake install files (only if they exist)
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/cmake_install.cmake
+)
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/install_manifest.txt
+)
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/CMakeCache.txt
+)
+
+
