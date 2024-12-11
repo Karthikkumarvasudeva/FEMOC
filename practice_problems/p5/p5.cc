@@ -1,29 +1,52 @@
 #include<iostream>
 #include<vector>
 
+double triangle_area1(int base, int height){
+ //double area;
+ //area = 0.5*base*height;
+ // return area; // or
+ return 0.5*base*height;
+}
+
+void triangle_area2(int base, int height, double &area){
+ area = 0.5*base*height;
+}
+
+void square(int length, double &Area1, double &perimeter){
+ Area1 = length*length;
+ perimeter = 4*length;
+}
+
+void print_vec(std::vector<double> vec1){
+    for (int i =0 ; i<vec1.size();i++){
+     std::cout<<vec1[i]<<std::endl;
+    }
+
+}
+
+
 int main(){
+    double area;
 
-//std::cout<<"Hello World!"<<std::endl;
- int a;
- int b,c;
- int d=1, e=3,f;
- unsigned int g=10;
- double h=9.3;
- std::cout<<3/4. <<std::endl;
+    double Area;
+    Area = triangle_area1(5,2);
+    std::cout<<Area<<std::endl;
 
- std::vector<double> vec1;
- std::vector<double> vec2(3);
- std::vector<double>vec3(3,1.), vec4(2);
 
- vec1.resize(5);
+    triangle_area2(7,3, area);
+    std::cout<<area<<std::endl;
 
- std::cout << vec1.size() << std::endl;
- std::cout<< vec1[0] <<std::endl;
+    double Area1, perimeter;
+    square(4,Area1, perimeter);
+    std::cout<<Area1<<std::endl;
+    std::cout<<perimeter<<std::endl;
 
- vec1.push_back(67.4321);
 
- std::cout<<vec1.size() <<std::endl;
- std::cout<< vec1[5] <<std::endl;
+    std::vector<double> vectest(6,3.);
+    print_vec(vectest);
+
+
+
 
 
 

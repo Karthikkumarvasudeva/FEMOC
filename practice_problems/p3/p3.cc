@@ -24,7 +24,7 @@ vec1.resize(3,2.1);
 std::cout<<vec1.size()<<" "<<vec2->size()<<std::endl;
 
 
-std::vector<double> vec(2,7.7);
+std::vector<double> vec(2,7.77);
 
 for(std::vector<double>::iterator  it = vec.begin(); it != vec.end(); it++){ //iterator it = vector first element; it not equal to vector last element (doesnt run out) ; increment to next element)
 
