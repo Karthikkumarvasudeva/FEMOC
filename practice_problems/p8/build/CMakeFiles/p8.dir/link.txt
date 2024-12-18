@@ -1,0 +1,1 @@
+/usr/bin/clang++ -O3 -DNDEBUG -rdynamic -pthread CMakeFiles/p8.dir/p8.cc.o -o p8  -Wl,-rpath,/usr/local/lib /usr/local/lib/libdeal_II.so.9.7.0-pre -ldl -lrt /usr/lib64/liblapack.so /usr/lib64/libblas.so /usr/lib64/libz.so 

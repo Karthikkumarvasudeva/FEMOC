@@ -1,0 +1,3 @@
+/home/student/FEM_practice/practice_problems/p8/build/CMakeFiles/rebuild_cache.dir
+/home/student/FEM_practice/practice_problems/p8/build/CMakeFiles/edit_cache.dir
+/home/student/FEM_practice/practice_problems/p8/build/CMakeFiles/p8.dir
