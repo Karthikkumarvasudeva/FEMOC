@@ -1,9 +1,13 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.12)
 
+# Set DEAL_II_DIR explicitly to the location of deal.II
+SET(DEAL_II_DIR "${CMAKE_HOME_DIRECTORY}/dealii")
+
+# Print deal.II directory for debugging
+MESSAGE(STATUS "Looking for deal.II in: ${DEAL_II_DIR}")
+
 # Find deal.II package
-FIND_PACKAGE(deal.II 9.0 QUIET
-   HINTS ${deal.II_DIR} ${DEAL_II_DIR} ../ ../ ../ $ENV{DEAL_II_DIR}
-)
+FIND_PACKAGE(deal.II 9.0 REQUIRED HINTS ${DEAL_II_DIR})
 
 # Check if deal.II is found
 IF(NOT ${deal.II_FOUND})
@@ -26,6 +30,7 @@ ADD_SUBDIRECTORY(practice_problems)
 SET(CMAKE_EXPORT_COMPILE_COMMANDS OFF)
 
 # Clean up CMake install files (only if they exist)
+
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/cmake_install.cmake
 )

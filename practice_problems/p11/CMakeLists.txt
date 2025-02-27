@@ -13,3 +13,6 @@ ADD_EXECUTABLE(${TARGET} ${TARGET_SRC})
 
 # Set up deal.II target
 DEAL_II_SETUP_TARGET(${TARGET})
+
+
+#target_link_libraries(p11 deal.II::deal.II)
