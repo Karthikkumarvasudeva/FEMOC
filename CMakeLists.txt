@@ -21,6 +21,17 @@ ENDIF()
 # Set the project name (not the target)
 PROJECT(FEM_Practice)
 
+
+# Set C++ standard to C++17 (or C++20 if you prefer)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)  # Optional: Disables compiler-specific extensions
+
+# Add compiler flags for advanced C++ features
+add_compile_options(-std=c++17)
+add_compile_options(-fexceptions) # Allow exceptions for debugging
+
+
 # Initialize deal.II cached variables
 DEAL_II_INITIALIZE_CACHED_VARIABLES()
 

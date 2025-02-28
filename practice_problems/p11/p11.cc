@@ -34,13 +34,36 @@ public:
     //CoupledSystem(const unsigned int degree, const unsigned int refinement_steps, const double nu)
     //    : degree(degree), refinement_steps(refinement_steps), nu(nu),
     //      fe(degree), dof_handler(triangulation) {}
+
+
+    //CoupledSystem(const unsigned int degree, const unsigned int refinement_steps, const double nu)
+    //: degree(degree),
+    //  nu(nu),
+    //  refinement_steps(refinement_steps),
+    //  fe(degree),
+    //  dof_handler(triangulation),
+    //  data_out() {}
+
+
     CoupledSystem(const unsigned int degree, const unsigned int refinement_steps, const double nu)
-    : degree(degree),
-      nu(nu),
+    : triangulation(),        // Initialize first
+      fe(degree),             // FE_Q depends on degree
+      dof_handler(triangulation), // DoFHandler depends on triangulation
+      data_out(),
+      mass_matrix(),
+      b_matrix(),
+      c1_matrix(),
+      c2_matrix(),
+      s1_n(),
+      s2_n(),
+      w_n1(),
+      u_n1(),
+      nu(nu),                // nu comes before degree
+      degree(degree),        // Match declaration order
       refinement_steps(refinement_steps),
-      fe(degree),
-      dof_handler(triangulation),
-      data_out() {}
+      preconditioner() {}    // Last member
+
+
 
     void run();
 
