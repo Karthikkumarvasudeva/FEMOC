@@ -1,5 +1,5 @@
 #include <deal.II/base/quadrature_lib.h>
-#include <deal.II/base/function/function.h>
+#include <deal.II/base/function.h>
 #include <deal.II/base/logstream.h>
 #include <deal.II/base/convergence_table.h>
 #include <deal.II/lac/vector.h>
@@ -9,13 +9,14 @@
 #include <deal.II/lac/solver_control.h>
 #include <deal.II/lac/solver_cg.h>
 #include <deal.II/lac/precondition.h>
+#include <deal.II/lac/precondition_selector.h>
 #include <deal.II/grid/tria.h>
 #include <deal.II/grid/tria_accessor.h>
 #include <deal.II/grid/tria_iterator.h>
 #include <deal.II/grid/grid_generator.h>
 #include <deal.II/dofs/dof_handler.h>
-#include <deal.II/dof_accessor.h>
-#include <deal.II/dofs/dofs_tools.h>
+#include <deal.II/dofs/dof_accessor.h>
+#include <deal.II/dofs/dof_tools.h>
 #include <deal.II/fe/fe_q.h>
 #include <deal.II/fe/fe_values.h>
 #include <deal.II/numerics/vector_tools.h>
@@ -30,9 +31,16 @@ using namespace dealii;
 
 class CoupledSystem {
 public:
+    //CoupledSystem(const unsigned int degree, const unsigned int refinement_steps, const double nu)
+    //    : degree(degree), refinement_steps(refinement_steps), nu(nu),
+    //      fe(degree), dof_handler(triangulation) {}
     CoupledSystem(const unsigned int degree, const unsigned int refinement_steps, const double nu)
-        : degree(degree), refinement_steps(refinement_steps), nu(nu),
-          fe(degree), dof_handler(triangulation) {}
+    : degree(degree),
+      nu(nu),
+      refinement_steps(refinement_steps),
+      fe(degree),
+      dof_handler(triangulation),
+      data_out() {}
 
     void run();
 
@@ -43,10 +51,10 @@ private:
     void solve_si_system(Vector<double>& si, const SparseMatrix<double>& ci, const Vector<double>& u);
     void output_results(const unsigned int cycle) const;
 
-    Triangulation triangulation;
-    FE_Q fe;
-    DoFHandler dof_handler;
-    DataOut data_out;
+    Triangulation<2> triangulation;
+    FE_Q<2> fe;  //quadratic elements
+    DoFHandler<2> dof_handler;
+    DataOut<2> data_out;
 
     SparseMatrix<double> mass_matrix;
     SparseMatrix<double> b_matrix;
@@ -62,24 +70,138 @@ private:
 };
 
 
-void CoupledSystem::setup_system() {
+/*void CoupledSystem::setup_system() {
     dof_handler.distribute_dofs(fe);
 
     DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
     DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
     mass_matrix.reinit(mass_dsp);
     b_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
-    c1_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
-    c2_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
+
+    dealii::SparsityPattern sparsity_pattern;
+
+// Generate SparsityPattern using DynamicSparsityPattern
+    dealii::DynamicSparsityPattern dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, dsp);
+
+// Reinitialize the matrix with the sparsity pattern
+    c1_matrix.reinit(sparsity_pattern);
+
+   // // // c1_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
+
+// Reinitialize the matrix with the sparsity pattern
+    c2_matrix.reinit(sparsity_pattern);
+    // // // c2_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
+}*/
+
+/*void CoupledSystem::setup_system() {
+    dof_handler.distribute_dofs(fe);
+
+    // Create DynamicSparsityPattern
+    DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
+
+    // Reinitialize SparsityPattern with the DynamicSparsityPattern
+    SparsityPattern mass_sp;
+    mass_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), mass_dsp.get_pattern(), false);
+    mass_matrix.reinit(mass_sp);
+
+    // Same for b_matrix, c1_matrix, c2_matrix
+    DynamicSparsityPattern b_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, b_dsp);
+    SparsityPattern b_sp;
+    b_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), b_dsp.get_pattern(), false);
+    b_matrix.reinit(b_sp);
+
+    DynamicSparsityPattern c1_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, c1_dsp);
+    SparsityPattern c1_sp;
+    c1_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c1_dsp.get_pattern(), false);
+    c1_matrix.reinit(c1_sp);
+
+    DynamicSparsityPattern c2_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, c2_dsp);
+    SparsityPattern c2_sp;
+    c2_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c2_dsp.get_pattern(), false);
+    c2_matrix.reinit(c2_sp);
+}*/
+
+/*void CoupledSystem::setup_system() {
+    dof_handler.distribute_dofs(fe);
+
+    // Create DynamicSparsityPattern
+    DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
+
+    // Reinitialize SparsityPattern using 3 arguments
+    SparsityPattern mass_sp;
+    mass_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), mass_dsp);
+    mass_matrix.reinit(mass_sp);
+
+    // Same for b_matrix, c1_matrix, c2_matrix
+    DynamicSparsityPattern b_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, b_dsp);
+    SparsityPattern b_sp;
+    b_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), b_dsp);
+    b_matrix.reinit(b_sp);
+
+    DynamicSparsityPattern c1_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, c1_dsp);
+    SparsityPattern c1_sp;
+    c1_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c1_dsp);
+    c1_matrix.reinit(c1_sp);
+
+    DynamicSparsityPattern c2_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, c2_dsp);
+    SparsityPattern c2_sp;
+    c2_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c2_dsp);
+    c2_matrix.reinit(c2_sp);
+}*/
+
+
+void CoupledSystem::setup_system() {
+    dof_handler.distribute_dofs(fe);
+
+    // Create DynamicSparsityPattern
+    DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
+
+    // Reinitialize SparsityPattern using the DynamicSparsityPattern
+    SparsityPattern mass_sp;
+    mass_sp.copy_from(mass_dsp);
+    mass_matrix.reinit(mass_sp);
+
+    // Same for b_matrix, c1_matrix, c2_matrix
+    DynamicSparsityPattern b_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, b_dsp);
+    SparsityPattern b_sp;
+    b_sp.copy_from(b_dsp);
+    b_matrix.reinit(b_sp);
+
+    DynamicSparsityPattern c1_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, c1_dsp);
+    SparsityPattern c1_sp;
+    c1_sp.copy_from(c1_dsp);
+    c1_matrix.reinit(c1_sp);
+
+    DynamicSparsityPattern c2_dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, c2_dsp);
+    SparsityPattern c2_sp;
+    c2_sp.copy_from(c2_dsp);
+    c2_matrix.reinit(c2_sp);
 }
 
+
+
+
 void CoupledSystem::assemble_m_b_matrices() {
-    QGauss quadrature_formula(degree + 1);
-    FEValues fe_values(fe, quadrature_formula,
+        const unsigned int dofs_per_cell = fe.dofs_per_cell;
+
+    QGauss<2> quadrature_formula(degree + 1);
+    FEValues<2> fe_values(fe, quadrature_formula,
                                   update_values | update_gradients |
                                       update_quadrature_points | update_JxW_values);
 
-    const unsigned int dofs_per_cell = fe.dofs_per_cell;
 
     std::vector<types::global_dof_index> local_dof_indices(dofs_per_cell);
 
@@ -151,47 +273,40 @@ void CoupledSystem::run() {
 
 
 void CoupledSystem::solve_wu_system(Vector<double>& w, Vector<double>& u, const Vector<double>& s1, const Vector<double>& s2) {
-    SparsityPattern sparsity_pattern(2 * dof_handler.n_dofs());
+    // Define the sparsity pattern
     DynamicSparsityPattern dsp(2 * dof_handler.n_dofs());
-
-    QGauss quadrature_formula(degree + 1);
-    FEValues fe_values(fe, quadrature_formula,
-                                  update_values | update_gradients |
-                                      update_quadrature_points | update_JxW_values);
-
-    for (unsigned int i = 0; i < dof_handler.n_dofs(); ++i) {
-        for (unsigned int j = 0; j < dof_handler.n_dofs(); ++j) {
-            if (mass_matrix.el(i, j) != 0.0) {
-                dsp.add(i, j);
-            }
-            if (b_matrix.el(i, j) != 0.0) {
-                dsp.add(i, j + dof_handler.n_dofs());
-                dsp.add(i + dof_handler.n_dofs(), j);
-            }
-        }
-    }
+    SparsityPattern sparsity_pattern;
     sparsity_pattern.copy_from(dsp);
 
+    // Create the system matrix with the sparsity pattern
     SparseMatrix<double> system_matrix(sparsity_pattern);
-    Vector<double> system_rhs(2 * dof_handler.n_dofs(),0.0);
-    Vector<double> solution(2 * dof_handler.n_dofs());
 
+    // Create system_rhs and solution vectors with the appropriate size
+    Vector<double> system_rhs(2 * dof_handler.n_dofs());
+    system_rhs = 0.0;  // Initialize to zero
+    Vector<double> solution(2 * dof_handler.n_dofs());
+    solution = 0.0;  // Initialize to zero
+
+    // Fill the system_matrix
     for (unsigned int i = 0; i < dof_handler.n_dofs(); ++i) {
         for (unsigned int j = 0; j < dof_handler.n_dofs(); ++j) {
             system_matrix.set(i, j, mass_matrix.el(i, j));
             system_matrix.set(i, j + dof_handler.n_dofs(), b_matrix.el(j, i));
             system_matrix.set(i + dof_handler.n_dofs(), j, b_matrix.el(i, j));
+            system_matrix.set(i + dof_handler.n_dofs(), j + dof_handler.n_dofs(), 0.0);
         }
     }
 
-    QGauss quadrature_formula(degree + 1);
-    FEValues fe_values(fe, quadrature_formula,
-                                  update_values | update_gradients |
-                                      update_quadrature_points | update_JxW_values);
+    // Initialize FEValues
+    QGauss<2> quadrature_formula(degree + 1);
+    FEValues<2> fe_values(fe, quadrature_formula,
+                          update_values | update_gradients |
+                          update_quadrature_points | update_JxW_values);
 
     const unsigned int dofs_per_cell = fe.dofs_per_cell;
     std::vector<types::global_dof_index> local_dof_indices(dofs_per_cell);
 
+    // Assemble the system_rhs
     for (const auto &cell : dof_handler.active_cell_iterators()) {
         fe_values.reinit(cell);
         cell->get_dof_indices(local_dof_indices);
@@ -214,20 +329,22 @@ void CoupledSystem::solve_wu_system(Vector<double>& w, Vector<double>& u, const 
         }
     }
 
+    // Set up the solver and solve the system
     SolverControl solver_control(1000, 1e-10);
     SolverCG<> solver_cg(solver_control);
-
     solver_cg.solve(system_matrix, solution, system_rhs, preconditioner);
 
+    // Post-process the solution
     for (unsigned int i = 0; i < dof_handler.n_dofs(); ++i) {
         w(i) = solution(i);
         u(i) = solution(i + dof_handler.n_dofs());
     }
 }
 
+
 void CoupledSystem::solve_si_system(Vector<double>& si, const SparseMatrix<double>& ci, const Vector<double>& u) {
     Vector<double> rhs(dof_handler.n_dofs());
-    ci.vmult_transpose(rhs, u);
+    ci.vmult(rhs, u); ////////////////////////////////////////////
     rhs *= -1.0;
 
     SolverControl solver_control(1000, 1e-10);
@@ -237,7 +354,7 @@ void CoupledSystem::solve_si_system(Vector<double>& si, const SparseMatrix<doubl
 }
 
 void CoupledSystem::output_results(const unsigned int cycle) const {
-    DataOut data_out;
+    DataOut<2> data_out;
     data_out.attach_dof_handler(dof_handler);
     data_out.add_data_vector(w_n1, "W");
     data_out.add_data_vector(u_n1, "U");
