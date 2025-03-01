@@ -117,37 +117,6 @@ private:
     // // // c2_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
 }*/
 
-/*void CoupledSystem::setup_system() {
-    dof_handler.distribute_dofs(fe);
-
-    // Create DynamicSparsityPattern
-    DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
-
-    // Reinitialize SparsityPattern with the DynamicSparsityPattern
-    SparsityPattern mass_sp;
-    mass_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), mass_dsp.get_pattern(), false);
-    mass_matrix.reinit(mass_sp);
-
-    // Same for b_matrix, c1_matrix, c2_matrix
-    DynamicSparsityPattern b_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, b_dsp);
-    SparsityPattern b_sp;
-    b_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), b_dsp.get_pattern(), false);
-    b_matrix.reinit(b_sp);
-
-    DynamicSparsityPattern c1_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, c1_dsp);
-    SparsityPattern c1_sp;
-    c1_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c1_dsp.get_pattern(), false);
-    c1_matrix.reinit(c1_sp);
-
-    DynamicSparsityPattern c2_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, c2_dsp);
-    SparsityPattern c2_sp;
-    c2_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c2_dsp.get_pattern(), false);
-    c2_matrix.reinit(c2_sp);
-}*/
 
 /*void CoupledSystem::setup_system() {
     dof_handler.distribute_dofs(fe);
@@ -271,6 +240,7 @@ void CoupledSystem::run() {
     setup_system();
     assemble_m_b_matrices();
 
+
     s1_n.reinit(dof_handler.n_dofs());
     s2_n.reinit(dof_handler.n_dofs());
     w_n1.reinit(dof_handler.n_dofs());
@@ -355,7 +325,11 @@ void CoupledSystem::solve_wu_system(Vector<double>& w, Vector<double>& u, const 
     // Set up the solver and solve the system
     SolverControl solver_control(1000, 1e-10);
     SolverCG<> solver_cg(solver_control);
+
     solver_cg.solve(system_matrix, solution, system_rhs, preconditioner);
+
+ // //       solver_cg.solve(system_matrix, solution, system_rhs, preconditionIdentity());
+
 
     // Post-process the solution
     for (unsigned int i = 0; i < dof_handler.n_dofs(); ++i) {
