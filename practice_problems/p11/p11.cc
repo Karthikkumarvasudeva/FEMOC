@@ -3,6 +3,9 @@
 #include <deal.II/base/logstream.h>
 #include <deal.II/base/convergence_table.h>
 #include <deal.II/lac/vector.h>
+
+#include <deal.II/base/tensor_function.h>
+
 #include <deal.II/lac/full_matrix.h>
 #include <deal.II/lac/sparse_matrix.h>
 #include <deal.II/lac/dynamic_sparsity_pattern.h>
@@ -22,6 +25,7 @@
 #include <deal.II/numerics/vector_tools.h>
 #include <deal.II/numerics/matrix_tools.h>
 #include <deal.II/numerics/data_out.h>
+
 
 #include <iostream>
 #include <fstream>
@@ -117,41 +121,7 @@ private:
     // // // c2_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
 }*/
 
-
 /*void CoupledSystem::setup_system() {
-    dof_handler.distribute_dofs(fe);
-
-    // Create DynamicSparsityPattern
-    DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
-
-    // Reinitialize SparsityPattern using 3 arguments
-    SparsityPattern mass_sp;
-    mass_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), mass_dsp);
-    mass_matrix.reinit(mass_sp);
-
-    // Same for b_matrix, c1_matrix, c2_matrix
-    DynamicSparsityPattern b_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, b_dsp);
-    SparsityPattern b_sp;
-    b_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), b_dsp);
-    b_matrix.reinit(b_sp);
-
-    DynamicSparsityPattern c1_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, c1_dsp);
-    SparsityPattern c1_sp;
-    c1_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c1_dsp);
-    c1_matrix.reinit(c1_sp);
-
-    DynamicSparsityPattern c2_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, c2_dsp);
-    SparsityPattern c2_sp;
-    c2_sp.reinit(dof_handler.n_dofs(), dof_handler.n_dofs(), c2_dsp);
-    c2_matrix.reinit(c2_sp);
-}*/
-
-
-void CoupledSystem::setup_system() {
     dof_handler.distribute_dofs(fe);
 
     // Create DynamicSparsityPattern
@@ -181,10 +151,26 @@ void CoupledSystem::setup_system() {
     SparsityPattern c2_sp;
     c2_sp.copy_from(c2_dsp);
     c2_matrix.reinit(c2_sp);
+}*/
+
+
+void CoupledSystem::setup_system() {
+    dof_handler.distribute_dofs(fe);
+
+    // Create DynamicSparsityPattern
+    DynamicSparsityPattern dsp(dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, dsp);
+
+    // Reinitialize SparsityPattern using the DynamicSparsityPattern
+    SparsityPattern sp;
+    sp.copy_from(dsp);
+    mass_matrix.reinit(sp);
+
+    // Same for b_matrix, c1_matrix, c2_matrix
+    b_matrix.reinit(sp);
+    c1_matrix.reinit(sp);
+    c2_matrix.reinit(sp);
 }
-
-
-
 
 void CoupledSystem::assemble_m_b_matrices() {
         const unsigned int dofs_per_cell = fe.dofs_per_cell;
@@ -230,7 +216,11 @@ void CoupledSystem::assemble_m_b_matrices() {
         }
     }
         // Now initialize the preconditioner with the mass matrix.
-    preconditioner.initialize(mass_matrix, 1.2);
+            // Ensure mass_matrix is non-empty before initializing preconditioner
+    if (mass_matrix.m() > 0) {
+        preconditioner.initialize(mass_matrix, 1.2);
+    }
+  // // //  preconditioner.initialize(mass_matrix, 1.2);
 }
 
 void CoupledSystem::run() {
@@ -266,19 +256,27 @@ void CoupledSystem::run() {
 
 
 void CoupledSystem::solve_wu_system(Vector<double>& w, Vector<double>& u, const Vector<double>& s1, const Vector<double>& s2) {
+
     // Define the sparsity pattern
     DynamicSparsityPattern dsp(2 * dof_handler.n_dofs());
+    DoFTools::make_sparsity_pattern(dof_handler, dsp);
     SparsityPattern sparsity_pattern;
     sparsity_pattern.copy_from(dsp);
 
     // Create the system matrix with the sparsity pattern
-    SparseMatrix<double> system_matrix(sparsity_pattern);
+   // // //  SparseMatrix<double> system_matrix(sparsity_pattern);
+
+     SparseMatrix<double> system_matrix;
+    system_matrix.reinit(sparsity_pattern);  // Now properly initialized
+
 
     // Create system_rhs and solution vectors with the appropriate size
     Vector<double> system_rhs(2 * dof_handler.n_dofs());
     system_rhs = 0.0;  // Initialize to zero
     Vector<double> solution(2 * dof_handler.n_dofs());
     solution = 0.0;  // Initialize to zero
+
+
 
     // Fill the system_matrix
     for (unsigned int i = 0; i < dof_handler.n_dofs(); ++i) {
