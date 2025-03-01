@@ -18,7 +18,6 @@ IF(NOT ${deal.II_FOUND})
 )
 ENDIF()
 
-set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE)
 
 # Set the project name (not the target)
 PROJECT(FEM_Practice)
@@ -34,9 +33,10 @@ add_compile_options(-std=c++17)
 add_compile_options(-fexceptions) # Allow exceptions for debugging
 
 
-# Disable automatic installation rules
-set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE)
+# Disable installation targets
 set(CMAKE_SKIP_INSTALL_RULES ON)
+set(CMAKE_SKIP_RPATH ON)
+set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE)
 
 # Initialize deal.II cached variables
 DEAL_II_INITIALIZE_CACHED_VARIABLES()
@@ -48,22 +48,17 @@ SET(CMAKE_EXPORT_COMPILE_COMMANDS OFF)
 
 # Clean up CMake install files (only if they exist)
 
-#execute_process(
-#    COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/cmake_install.cmake
-#)
-#execute_process(
-#    COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/install_manifest.txt
-#)
-#execute_process(
-#    COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/CMakeCache.txt
-#)
-
-# Ensure unnecessary files are removed
-add_custom_target(clean_cmake_files ALL
+execute_process(
     COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/cmake_install.cmake
+)
+execute_process(
     COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/install_manifest.txt
+)
+execute_process(
     COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/CMakeCache.txt
 )
+
+
 
 # Prevent accidental install() commands
 macro(install)
