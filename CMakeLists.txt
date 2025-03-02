@@ -32,14 +32,15 @@ set(CMAKE_CXX_EXTENSIONS OFF)  # Optional: Disables compiler-specific extensions
 add_compile_options(-std=c++17)
 add_compile_options(-fexceptions) # Allow exceptions for debugging
 
+# Initialize deal.II cached variables
+DEAL_II_INITIALIZE_CACHED_VARIABLES()
 
 # Disable installation targets
 set(CMAKE_SKIP_INSTALL_RULES ON)
 set(CMAKE_SKIP_RPATH ON)
 set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY TRUE)
 
-# Initialize deal.II cached variables
-DEAL_II_INITIALIZE_CACHED_VARIABLES()
+
 
 # Add the practice_problems subdirectory
 ADD_SUBDIRECTORY(practice_problems)
@@ -57,7 +58,6 @@ execute_process(
 execute_process(
     COMMAND ${CMAKE_COMMAND} -E remove_if_exists ${CMAKE_BINARY_DIR}/CMakeCache.txt
 )
-
 
 
 # Prevent accidental install() commands
