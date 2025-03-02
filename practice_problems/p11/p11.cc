@@ -78,7 +78,7 @@ private:
     void solve_si_system(Vector<double>& si, const SparseMatrix<double>& ci, const Vector<double>& u);
     void output_results(const unsigned int cycle) const;
 
-    Triangulation<2> triangulation;
+    Triangulation<2,2> triangulation;
     FE_Q<2> fe;  //quadratic elements
     DoFHandler<2> dof_handler;
     DataOut<2> data_out;
