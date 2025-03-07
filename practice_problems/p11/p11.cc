@@ -78,8 +78,8 @@ private:
     void solve_si_system(Vector<double>& si, const SparseMatrix<double>& ci, const Vector<double>& u);
     void output_results(const unsigned int cycle) const;
 
-    Triangulation<2,2> triangulation;
-    FE_Q<2> fe;  //quadratic elements
+    Triangulation<2> triangulation;
+    FE_Q<1> fe;  //quadratic elements
     DoFHandler<2> dof_handler;
     DataOut<2> data_out;
 
@@ -123,7 +123,7 @@ private:
 
 /*void CoupledSystem::setup_system() {
     dof_handler.distribute_dofs(fe);
-
+   dealii::
     // Create DynamicSparsityPattern
     DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
     DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
