@@ -1,5 +1,5 @@
-# FEM_practice-
-This is a repo of fem practice
+# FEMOC
+Finite Element Method for Optimal Control
 Follow the below steps
 
 # mkdir build
