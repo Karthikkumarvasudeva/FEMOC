@@ -1,5 +1,5 @@
 # Set the name of the target
-SET(TARGET "p11")
+SET(TARGET "HM_Biharmonic")
 
 
 
