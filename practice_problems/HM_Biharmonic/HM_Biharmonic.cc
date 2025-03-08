@@ -79,7 +79,7 @@ private:
     void output_results(const unsigned int cycle) const;
 
     Triangulation<2> triangulation;
-    FE_Q<1> fe;  //quadratic elements
+    FE_Q<2> fe;  //quadratic elements
     DoFHandler<2> dof_handler;
     DataOut<2> data_out;
 
@@ -96,6 +96,7 @@ private:
     PreconditionSSOR<SparseMatrix<double>> preconditioner;
 };
 
+// Testing
 
 /*void CoupledSystem::setup_system() {
     dof_handler.distribute_dofs(fe);
@@ -119,38 +120,6 @@ private:
 // Reinitialize the matrix with the sparsity pattern
     c2_matrix.reinit(sparsity_pattern);
     // // // c2_matrix.reinit(dof_handler.n_dofs(), dof_handler.n_dofs());
-}*/
-
-/*void CoupledSystem::setup_system() {
-    dof_handler.distribute_dofs(fe);
-   dealii::
-    // Create DynamicSparsityPattern
-    DynamicSparsityPattern mass_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, mass_dsp);
-
-    // Reinitialize SparsityPattern using the DynamicSparsityPattern
-    SparsityPattern mass_sp;
-    mass_sp.copy_from(mass_dsp);
-    mass_matrix.reinit(mass_sp);
-
-    // Same for b_matrix, c1_matrix, c2_matrix
-    DynamicSparsityPattern b_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, b_dsp);
-    SparsityPattern b_sp;
-    b_sp.copy_from(b_dsp);
-    b_matrix.reinit(b_sp);
-
-    DynamicSparsityPattern c1_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, c1_dsp);
-    SparsityPattern c1_sp;
-    c1_sp.copy_from(c1_dsp);
-    c1_matrix.reinit(c1_sp);
-
-    DynamicSparsityPattern c2_dsp(dof_handler.n_dofs());
-    DoFTools::make_sparsity_pattern(dof_handler, c2_dsp);
-    SparsityPattern c2_sp;
-    c2_sp.copy_from(c2_dsp);
-    c2_matrix.reinit(c2_sp);
 }*/
 
 
@@ -223,6 +192,7 @@ void CoupledSystem::assemble_m_b_matrices() {
   // // //  preconditioner.initialize(mass_matrix, 1.2);
 }
 
+/*
 void CoupledSystem::run() {
     GridGenerator::hyper_cube(triangulation);
     triangulation.refine_global(refinement_steps);
@@ -235,6 +205,9 @@ void CoupledSystem::run() {
     s2_n.reinit(dof_handler.n_dofs());
     w_n1.reinit(dof_handler.n_dofs());
     u_n1.reinit(dof_handler.n_dofs());
+
+
+
 
     if (std::abs(nu - 1.0) < 1e-10) {
         // ν = 1: Block-triangular solve
@@ -252,7 +225,7 @@ void CoupledSystem::run() {
         }
     }
 }
-
+*/
 
 
 void CoupledSystem::solve_wu_system(Vector<double>& w, Vector<double>& u, const Vector<double>& s1, const Vector<double>& s2) {
@@ -347,6 +320,40 @@ void CoupledSystem::solve_si_system(Vector<double>& si, const SparseMatrix<doubl
 
     solver_cg.solve(mass_matrix, si, rhs, preconditioner);
 }
+
+
+void CoupledSystem::run() {
+    GridGenerator::hyper_cube(triangulation);
+    triangulation.refine_global(refinement_steps);
+
+    setup_system();
+    assemble_m_b_matrices();
+
+
+    s1_n.reinit(dof_handler.n_dofs());
+    s2_n.reinit(dof_handler.n_dofs());
+    w_n1.reinit(dof_handler.n_dofs());
+    u_n1.reinit(dof_handler.n_dofs());
+
+
+    if (std::abs(nu - 1.0) < 1e-10) {
+        // ν = 1: Block-triangular solve
+        solve_wu_system(w_n1, u_n1, s1_n, s2_n);
+        solve_si_system(s1_n, c1_matrix, u_n1);
+        solve_si_system(s2_n, c2_matrix, u_n1);
+        output_results(0);
+    } else {
+        // ν ≠ 1: Relaxation algorithm
+        for (unsigned int cycle = 0; cycle < 10; ++cycle) {
+            solve_wu_system(w_n1, u_n1, s1_n, s2_n);
+            solve_si_system(s1_n, c1_matrix, u_n1);
+            solve_si_system(s2_n, c2_matrix, u_n1);
+            output_results(cycle);
+        }
+    }
+}
+
+
 
 void CoupledSystem::output_results(const unsigned int cycle) const {
     DataOut<2> data_out;
